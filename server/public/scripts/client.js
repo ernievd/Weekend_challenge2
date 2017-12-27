@@ -6,35 +6,54 @@ class DataEntered {
     }
 }
 
+//Set up globals
 let arrayCounter = 0;
-// let guessCount = 0;
-// let maxNum; // used to store max number selected
+let firstNum = null;
+let secondNum = null; 
+let operator = null; 
 
 $(document).ready(start);
 
 // event listeners
 function start () {
     $('#resultsButton').on('click', main);
-    // $('#mainContainer').on('click', '#cancelGame', cancel);
-    // $('#mainContainer').on('click', '#submitUserGuess', submitGuess);
+    $('#clearButton').on('click', clear);
 }
+
+function getInput()
+{
+    firstNum = $('#firstNumber').val();
+    secondNum = $('#secondNumber').val();
+    operation = $('#functionDropDown option:selected').text();
+        
+    console.log('length: ' + operation.length);
+    
+    if (firstNum.length == 0 || secondNum == null || operation == 'Select a Function'){
+        alert("All input fields must have a value. Please check all inputs.")
+        return false;
+    }
+    else {
+        return true;
+    }
+} // End getInput
 
 function main () {
    console.log('clicked in resultsButton');
+    if (getInput()==true){sendAndGetCalc()}
+}// end main
 
-//    let $input = $('<input type="number>');
-    let $container = $('#mainContainer');
-    let firstNum = $('#firstNumber').val();
-    let secondNum = $('#secondNumber').val();
-    let operation = $('#functionDropDown option:selected').text();
+
+function sendAndGetCalc(){
+    firstNum = $('#firstNumber').val();
+    secondNum = $('#secondNumber').val();
+    operation = $('#functionDropDown option:selected').text();
     console.log('variables assigned : ' + firstNum +
         ' ' + operation +
         ' ' + secondNum);
-    
     dataObj = new DataEntered(firstNum, secondNum, operation);
     console.log('object to send - ' + dataObj);
     
-    // start ajax to send random number to server upon clicking the button.
+    // start ajax to send data to calculate post on the server
     $.ajax ({
         method: 'POST',
         url:'/calculatePost',
@@ -54,39 +73,25 @@ function main () {
         success: function (response) {
             console.log('get to /resultGet response: ', response);  
             $("#resultsContainer").append("<div> calculation: " + response[arrayCounter]);
-            arrayCounter++;
-            
-            // $("#resultsContainer").append("<div> calculation: " + firstNum +
-            // ' ' + operation +
-            // ' ' + secondNum + 
-            // " = " + response + "</div>");   
+            arrayCounter++;  
         } // End function response
     }); // End ajax Get
+}//End sendAndGetCalc
 
-//    $container.append('<div id="resultsCont"><label>Player 1</label><input type="number" id="playerOne"></div>')
-//    $container.append('<div id="two"><label>Player 2</label><input type="number" id="playerTwo"></div>')
-//    $container.append('<div id="three"><label>Player 3</label><input type="number" id="playerThree"></div>')
-//    $container.append('<div id="four"><label>Player 4</label><input type="number" id="playerFour"></div>')
-//    $container.append('<div><button id="submitUserGuess">Submit Guess</button><button id="cancelGame">Quit Loser</button></div>')
-//    console.log('this is the max num upon click start:', maxNum);
-//    $('h2').html('The maximum number is: ' + maxNum); // appending maximum number to the h2 element.
-//    $('h3').text(roundNum); // Displays the count of rounds every time submit is clicked.
-//    $(this).toggle();// this toggles the start button to remove the start game/quit button.
-//    $('#dropDown').toggle(); // remove drop down on toggle of start button. 
-//    // get dropdown value
-
-}// end main
 
 //cancel button functions 
-function cancel () {
+function clear () {
 console.log('cancel button has been clicked');
 // $('#statContainer').append();
-$('#startGame').toggle();
-$('#dropDown').toggle();
-$('h2').empty();
-$('#mainContainer').empty();
-$('h3').empty();
-roundNum = 1;
+// $('#firstNumber').empty();
+// $('#secondNumber').empty();
+// $('#functionDropDown').html("<option>Select a Function</option>");
+// $('#plus').val("+");
+arrayCounter = 0;
+firstNum = null;
+secondNum = null; 
+operator = null; 
+location.reload();
 }// end cancel Submit
 
 // submit button functions 
@@ -107,10 +112,3 @@ function submitGuess () {
         }
     }) 
 }
-
-// To DO
-// total guess counter = total number of guesses overall
-// high or low
-
-//after server. 
-// reset button to restart game upon winning.  
