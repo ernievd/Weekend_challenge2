@@ -1,6 +1,8 @@
-class RandomNumber {
-    constructor(max) {
-        this.max = max;
+class History {
+    constructor(first, second, operator) {
+        this.first = first;
+        this.second = second;
+        this.operator = operator;
     }
      randomNumber () {
         let random = Math.floor((Math.random() * this.max) + 1);

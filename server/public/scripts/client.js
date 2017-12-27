@@ -6,7 +6,7 @@ class DataEntered {
     }
 }
 
-// let roundNum = 1;
+let arrayCounter = 0;
 // let guessCount = 0;
 // let maxNum; // used to store max number selected
 
@@ -53,10 +53,13 @@ function main () {
         //        this is what is sent from the res.send on the server.js
         success: function (response) {
             console.log('get to /resultGet response: ', response);  
-            $("#resultsContainer").append("<div> calculation: " + firstNum +
-            ' ' + operation +
-            ' ' + secondNum + 
-            " = " + response + "</div>");   
+            $("#resultsContainer").append("<div> calculation: " + response[arrayCounter]);
+            arrayCounter++;
+            
+            // $("#resultsContainer").append("<div> calculation: " + firstNum +
+            // ' ' + operation +
+            // ' ' + secondNum + 
+            // " = " + response + "</div>");   
         } // End function response
     }); // End ajax Get
 
