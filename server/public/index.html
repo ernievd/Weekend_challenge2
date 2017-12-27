@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+    <script src="vendors/jquery.min.js"></script>
+    <script src="scripts/client.js"></script>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <h2></h2>
+    <h3></h3>
+    <div id="mainContainer">
+        <label>Enter the numbers to calculate and the operation to use:</label>
+        <p>
+            <label>First Number</label>
+            <input type = "number"
+                   id = "firstNumber"
+                   value = "0" />
+          </p>
+          <p>
+            <label>Second Number</label>
+            <input type = "number"
+                   id = "secondNumber"
+                   value = "0" />
+          </p>
+        <select name="Choose the math function to use" id="functionDropDown">
+            <option>Select a Function</option>
+            <!-- <option aria-placeholder="chooseFunction" id="function"></option> -->
+            <option id="plus">+</option>
+            <option id="subtract">-</option>
+            <option id="multiply">*</option>
+            <option id="divide">/</option>
+        </select> 
+        <button id="resultsButton">Click For Results</button>
+    </div>
+    <div id="resultsContainer">
+<!-- append here -->
+
+    </div>
+    
+    <!-- <form action="" id="formSection">
+        
+        <button id="submitBtn">Submit Guess</button>
+    </form>  -->
+</body>
+</html>
